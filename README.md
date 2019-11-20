@@ -10,7 +10,7 @@ For building and running the application you need:
 
 There are many ways to run this application locally. One of those ways is to build the JAR with
 ```shell
-./gradlew clean build
+./gradlew build
 ```
 And then deploy the JAR to the container with docker-compose
 ```shell
@@ -22,8 +22,8 @@ use -D flag with docker-compose to detach head. Another way of running the appli
 ```
 but the application is dependant on 2 container: calculator_memcached & calculator_postgres, therefore you need those up and running first: 
 ```
-docker-compose up calculator_memcached -d
-docker-compose up calculator_postgres -d
+docker-compose up -d memcached
+docker-compose up -d postgres
 ```
 When bootRunning application.properties file needs to be changed accordingly(container service name changed to localhost): 
 ```
