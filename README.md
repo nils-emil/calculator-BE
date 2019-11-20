@@ -25,7 +25,7 @@ but the application is dependant on 2 container: calculator_memcached & calculat
 docker-compose up -d memcached
 docker-compose up -d postgres
 ```
-When bootRunning application.properties file needs to be changed accordingly(container service name changed to localhost): 
+When bootRunning application.properties file needs to be changed accordingly (container service name changed to localhost): 
 ```
 spring.datasource.url=jdbc:postgresql://localhost:5432/calculator
 spring.datasource.username=postgres
