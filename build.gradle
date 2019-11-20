@@ -1,0 +1,41 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.1.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+	id "org.sonarqube" version "2.7"
+}
+
+group = 'nils'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	runtimeOnly('org.liquibase:liquibase-core')
+	compileOnly 'org.projectlombok:lombok:1.18.10'
+	runtimeOnly('org.postgresql:postgresql:42.2.5')
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'net.spy:spymemcached:2.12.3'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok:1.18.10'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}
+
+test {
+	useJUnitPlatform()
+}

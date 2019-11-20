@@ -1,0 +1,14 @@
+version: '3'
+services:
+  postgres:
+    build: docker/
+    container_name: calculator_postgres
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+  memcached:
+    image: memcached:alpine
+    container_name: calculator_memcached
+    ports:
+      - "11211:11211"
