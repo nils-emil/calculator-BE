@@ -3,6 +3,7 @@ package nils.calculator.api;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 import nils.calculator.CalculatorPostgresqlContainer;
+import nils.calculator.MemCacheContainer;
 import nils.calculator.enums.CalculatorOperation;
 import nils.calculator.models.CalculationDto;
 import nils.calculator.service.CalculatorService;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 import javax.annotation.PostConstruct;
@@ -31,6 +33,9 @@ public class CalculatorControllerTest {
 
     @ClassRule
     public static PostgreSQLContainer postgreSQLContainer = CalculatorPostgresqlContainer.getInstance();
+
+    @ClassRule
+    public static GenericContainer memCacheContainer = MemCacheContainer.getInstance();
 
     @LocalServerPort
     private int port;
@@ -183,17 +188,6 @@ public class CalculatorControllerTest {
     }
 
     @Test
-    public void getAllResults_CallsServiceWithCorrectParameters() {
-        // then
-        get(uri + "/calculate/results")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.OK.value());
-
-        verify(calculatorService, times(1)).getAllResults();
-    }
-
-    @Test
     public void postCalculationResult_CallsServiceWithCorrectParameters() throws JSONException {
         RequestSpecification request = RestAssured.given();
         JSONObject jsonObj = new JSONObject()
@@ -216,4 +210,16 @@ public class CalculatorControllerTest {
                 .operation(ADD)
                 .build(), true);
     }
+
+    @Test
+    public void getAllResults_CallsServiceWithCorrectParameters() {
+        // then
+        get(uri + "/calculate/results")
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.OK.value());
+
+        verify(calculatorService, times(1)).getAllResults();
+    }
+
 }
