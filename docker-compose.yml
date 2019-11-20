@@ -1,7 +1,7 @@
 version: '3'
 services:
   postgres:
-    build: docker/
+    build: docker/postgres
     container_name: calculator_postgres
     environment:
       - POSTGRES_PASSWORD=postgres
@@ -12,3 +12,8 @@ services:
     container_name: calculator_memcached
     ports:
       - "11211:11211"
+  application:
+    build: docker/application
+    container_name: calculator_application
+    ports:
+      - "8080:8080"
