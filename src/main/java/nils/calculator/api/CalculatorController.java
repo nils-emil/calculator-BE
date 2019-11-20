@@ -2,8 +2,8 @@ package nils.calculator.api;
 
 import lombok.RequiredArgsConstructor;
 import nils.calculator.enums.CalculatorOperation;
-import nils.calculator.models.OperationQuery;
-import nils.calculator.persistance.Calculation;
+import nils.calculator.models.CalculationDto;
+import nils.calculator.models.Calculation;
 import nils.calculator.service.CalculatorService;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
@@ -21,21 +21,21 @@ public class CalculatorController {
     @GetMapping()
     public Double getCalculationResult(@RequestParam Double num1,
                                        @RequestParam Double num2,
-                                       @RequestParam CalculatorOperation operation) throws Exception {
-        OperationQuery operationData = OperationQuery
+                                       @RequestParam CalculatorOperation operation) {
+        CalculationDto operationData = CalculationDto
                 .builder()
                 .num1(num1)
                 .num2(num2)
                 .operation(operation)
                 .build();
-        return calculatorService.getResult(operationData);
+        return calculatorService.getCalculationResult(operationData, false);
     }
 
 
     @CacheEvict(value = "results", allEntries = true)
     @PostMapping()
-    public Double postCalculationResult(@RequestBody OperationQuery operationQuery) throws Exception {
-        return calculatorService.getResult(operationQuery);
+    public Double postCalculationResult(@RequestBody CalculationDto calculationDto) {
+        return calculatorService.getCalculationResult(calculationDto, true);
     }
 
 

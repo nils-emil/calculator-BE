@@ -11,7 +11,7 @@ public class CalculatorOperationEnumConverter implements Converter<String, Calcu
         try {
             return CalculatorOperation.getEnum(source);
         } catch (Exception e) {
-            return null;
+            throw new IllegalArgumentException("Allowed values for CalculatorOperation are: [div, prod, sum, sub] ");
         }
     }
 }

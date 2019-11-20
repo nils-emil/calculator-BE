@@ -1,13 +1,13 @@
-package nils.calculator.persistance;
+package nils.calculator.models;
 
 import lombok.*;
+import nils.calculator.enums.CalculatorOperation;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Getter
-@Setter
 @Builder
 @Entity
 @NoArgsConstructor
@@ -30,7 +30,8 @@ public class Calculation implements Serializable {
 
     @Column
     @NotNull
-    private String operation;
+    @Enumerated(EnumType.STRING)
+    private CalculatorOperation operation;
 
     @Column
     @NotNull

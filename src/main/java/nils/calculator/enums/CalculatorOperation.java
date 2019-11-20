@@ -1,6 +1,7 @@
 package nils.calculator.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum CalculatorOperation {
     DIVIDE("div"),
@@ -21,7 +22,16 @@ public enum CalculatorOperation {
                 return v;
             }
         }
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException("Invalid enum value");
+    }
+
+    @JsonValue
+    public String toValue() {
+        for (CalculatorOperation entry : values()) {
+            if (entry == this)
+                return entry.getShortName();
+        }
+        return null;
     }
 
     public String getShortName() {

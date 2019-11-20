@@ -4,11 +4,12 @@ import lombok.*;
 import nils.calculator.enums.CalculatorOperation;
 
 @Getter
+@Setter
 @Builder
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OperationQuery {
+@EqualsAndHashCode
+public class CalculationDto {
 
     private Double num1;
     private Double num2;
