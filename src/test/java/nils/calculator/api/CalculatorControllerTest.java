@@ -1,14 +1,14 @@
 package nils.calculator.api;
 
-import com.xebialabs.restito.server.StubServer;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
+import nils.calculator.CalculatorPostgresqlContainer;
 import nils.calculator.enums.CalculatorOperation;
 import nils.calculator.models.CalculationDto;
 import nils.calculator.service.CalculatorService;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Before;
+import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,10 +16,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.testcontainers.containers.PostgreSQLContainer;
 
 import javax.annotation.PostConstruct;
 
-import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.get;
 import static nils.calculator.enums.CalculatorOperation.ADD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -28,12 +29,8 @@ import static org.mockito.Mockito.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CalculatorControllerTest {
 
-    private StubServer server = new StubServer();
-
-    @Before
-    public void setUp() {
-        server.run();
-    }
+    @ClassRule
+    public static PostgreSQLContainer postgreSQLContainer = CalculatorPostgresqlContainer.getInstance();
 
     @LocalServerPort
     private int port;
