@@ -13,7 +13,7 @@ services:
     ports:
       - "11211:11211"
   application:
-    build: docker/application
+    build: ./
     container_name: calculator_application
     ports:
       - "8080:8080"
