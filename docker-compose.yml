@@ -15,5 +15,8 @@ services:
   application:
     build: ./
     container_name: calculator_application
+    depends_on:
+      - postgres
+      - memcached
     ports:
       - "8080:8080"

@@ -144,15 +144,6 @@ public class CalculatorControllerTest {
 
     @Test
     public void getCalculationResult_ReturnsBadRequest_IfInvalidOperator() {
-        // given
-        CalculationDto query = CalculationDto
-                .builder()
-                .num1(7D)
-                .num2(2D)
-                .operation(CalculatorOperation.SUBTRACT)
-                .build();
-        when(calculatorService.getCalculationResult(query, false)).thenReturn(14D);
-
         // then
         get(uri + "/calculate?num1=7&num2=2&operation=randomOperator")
                 .then()
@@ -214,7 +205,7 @@ public class CalculatorControllerTest {
     @Test
     public void getAllResults_CallsServiceWithCorrectParameters() {
         // then
-        get(uri + "/calculate/results")
+        get(uri + "/getResults")
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.OK.value());

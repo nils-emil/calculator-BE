@@ -98,7 +98,7 @@ public class CalculatorControllerIntegrationTest {
     }
 
     @Test
-    public void postCalculationResult_CallsServiceWithCorrectParameters() throws JSONException {
+    public void postCalculationResult_ReturnsSavedResultFromDataBaseAfterPosting() throws JSONException {
         // given
         RequestSpecification request = RestAssured.given();
         JSONObject jsonObj = new JSONObject()
@@ -114,7 +114,7 @@ public class CalculatorControllerIntegrationTest {
                 .assertThat()
                 .statusCode(HttpStatus.OK.value());
 
-        String response = get(uri + "/calculate/results")
+        String response = get(uri + "/getResults")
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.OK.value())

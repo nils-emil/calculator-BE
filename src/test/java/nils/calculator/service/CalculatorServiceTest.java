@@ -1,14 +1,19 @@
 package nils.calculator.service;
 
+import nils.calculator.CalculatorPostgresqlContainer;
+import nils.calculator.MemCacheContainer;
 import nils.calculator.enums.CalculatorOperation;
 import nils.calculator.models.Calculation;
 import nils.calculator.models.CalculationDto;
 import nils.calculator.persistance.CalculationRepository;
+import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.util.List;
 
@@ -20,6 +25,12 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CalculatorServiceTest {
+
+    @ClassRule
+    public static PostgreSQLContainer postgreSQLContainer = CalculatorPostgresqlContainer.getInstance();
+
+    @ClassRule
+    public static GenericContainer memCacheContainer = MemCacheContainer.getInstance();
 
     @Mock
     CalculationRepository calculationRepository;

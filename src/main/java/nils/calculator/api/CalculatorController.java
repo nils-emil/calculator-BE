@@ -12,13 +12,13 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/calculate")
+@RequestMapping()
 @RequiredArgsConstructor
 public class CalculatorController {
 
     private final CalculatorService calculatorService;
 
-    @GetMapping()
+    @GetMapping("calculate")
     public Double getCalculationResult(@RequestParam Double num1,
                                        @RequestParam Double num2,
                                        @RequestParam CalculatorOperation operation) {
@@ -33,13 +33,13 @@ public class CalculatorController {
 
 
     @CacheEvict(value = "results", allEntries = true)
-    @PostMapping()
+    @PostMapping("calculate")
     public Double postCalculationResult(@RequestBody CalculationDto calculationDto) {
         return calculatorService.getCalculationResult(calculationDto, true);
     }
 
 
-    @GetMapping("results")
+    @GetMapping("getResults")
     public List<Calculation> getAllResults() {
         return calculatorService.getAllResults();
     }
